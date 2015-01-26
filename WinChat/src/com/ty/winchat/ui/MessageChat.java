@@ -95,7 +95,7 @@ public class MessageChat extends Base implements OnClickListener,OnProgressUpdat
 	private MessageUpdateBroadcastReceiver receiver=new MessageUpdateBroadcastReceiver();
 	
 	private boolean started;//用来标识控件是否渲染完毕
-	private boolean sendFile;//用来标识是否正在发送文件
+//	private boolean sendFile;//用来标识是否正在发送文件
 	
 	private final int SHOW_DIALOG=0XF1001;
 	private final int ON_SEND_PROGRESS_UPDATE=0XF1002;
@@ -200,6 +200,7 @@ public class MessageChat extends Base implements OnClickListener,OnProgressUpdat
 	}
 	
 	private PopupWindow morePopupWindow ;
+	@SuppressWarnings("deprecation")
 	private void showMoreFunction(){
 		if(morePopupWindow==null){
 			morePopupWindow=new PopupWindow(this);;
@@ -279,6 +280,7 @@ public class MessageChat extends Base implements OnClickListener,OnProgressUpdat
 	 * @param txt
 	 * @param ok
 	 */
+	@SuppressWarnings("deprecation")
 	private void showDialog(String txt,OnClickListener ok,OnClickListener cancl,boolean buttonShow){
 		if(popupWindow!=null)
 			popupWindow.dismiss();

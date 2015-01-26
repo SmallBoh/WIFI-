@@ -22,7 +22,6 @@ public abstract class TCPListener extends Listener{
 	 * 端口初始化
 	 */
 	abstract void init();
-		
 
 	private void createServer() throws IOException{
 		init();
@@ -31,7 +30,6 @@ public abstract class TCPListener extends Listener{
 		running=true;
 		start();
 	}
-	
 	
 	@Override
 	public void run() {
@@ -60,10 +58,6 @@ public abstract class TCPListener extends Listener{
 	/**通知用户发送文件出错*/
 	public abstract void noticeSendFileError(IOException e);
 	
-	
-	
-	
-	
 	@Override
 	public void open() throws IOException {
 		createServer();
@@ -82,7 +76,6 @@ public abstract class TCPListener extends Listener{
 	public boolean isRunning() {
 		return running;
 	}
-
 
 	public int getPort() {
 		return port;

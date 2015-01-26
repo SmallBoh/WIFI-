@@ -50,10 +50,12 @@ public class UDPMessageListener extends UDPListener{
 	}
 	
 	@Override
-  void init() {
+	void init() {
+		//端口号
 		setPort(port);
+		//数据缓冲区
 		setBufferSize(BUFFER_SIZE);
-  }
+	}
 	
   @Override
   public void onReceive(byte[] data, DatagramPacket packet) {
