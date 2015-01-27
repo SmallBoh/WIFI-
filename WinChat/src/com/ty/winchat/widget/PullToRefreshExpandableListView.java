@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
@@ -95,15 +96,9 @@ public class PullToRefreshExpandableListView extends ExpandableListView implemen
 		 * 前提是要得到headview的确切高度
 		 */
 		headView.setPadding(0, -1 * headContentHeight, 0, 0);
-		/*
-		 * Invalidate the whole view. If the view is visible,
-		 * onDraw(android.graphics.Canvas) will be called at some point in the
-		 * future. This must be called from a UI thread. To call from a non-UI
-		 * thread, call postInvalidate().
-		 */
+	 
 		headView.invalidate();
 
-//		Log.v("size", "width:" + headContentWidth + " height:" + headContentHeight);
 
 		addHeaderView(headView, null, false);
 		setOnScrollListener(this);
@@ -241,7 +236,6 @@ public class PullToRefreshExpandableListView extends ExpandableListView implemen
 				isBack = false;
 				arrowImageView.startAnimation(reverseAnimation);
 			}
-//			Log.v(TAG, "当前状态，下拉刷新");
 			break;
 
 		case REFRESHING:
@@ -283,25 +277,25 @@ public class PullToRefreshExpandableListView extends ExpandableListView implemen
 	}
 
 	// 此方法直接照搬自网络上的一个下拉刷新的demo，此处是“估计”headView的width以及height
-//	private void measureView(View child) {
-//		ViewGroup.LayoutParams p = child.getLayoutParams();
-//		if (p == null) {
-//			p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//		}
-//		// Does the hard part of measureChildren: figuring out the MeasureSpec
-//		// to pass to a particular child.
-//		int childWidthSpec = ViewGroup.getChildMeasureSpec(0, 0 + 0, p.width);
-//		int lpHeight = p.height;
-//		int childHeightSpec;
-//		if (lpHeight > 0) {
-//			// Creates a measure specification based on the supplied size and
-//			// mode.
-//			childHeightSpec = MeasureSpec.makeMeasureSpec(lpHeight, MeasureSpec.EXACTLY);
-//		} else {
-//			childHeightSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-//		}
-//		child.measure(childWidthSpec, childHeightSpec);
-//	}
+	private void measureView(View child) {
+		ViewGroup.LayoutParams p = child.getLayoutParams();
+		if (p == null) {
+			p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		}
+		// Does the hard part of measureChildren: figuring out the MeasureSpec
+		// to pass to a particular child.
+		int childWidthSpec = ViewGroup.getChildMeasureSpec(0, 0 + 0, p.width);
+		int lpHeight = p.height;
+		int childHeightSpec;
+		if (lpHeight > 0) {
+			// Creates a measure specification based on the supplied size and
+			// mode.
+			childHeightSpec = MeasureSpec.makeMeasureSpec(lpHeight, MeasureSpec.EXACTLY);
+		} else {
+			childHeightSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+		}
+		child.measure(childWidthSpec, childHeightSpec);
+	}
 
 	@Override
 	public void setAdapter(ListAdapter adapter) {

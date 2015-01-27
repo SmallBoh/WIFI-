@@ -23,8 +23,18 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 有米广告需要 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 以下是使用wifi访问网络所需的权限 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<!--     读写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".WinChatApplication"
@@ -47,10 +57,6 @@
             android:name=".ui.Set"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        <activity android:name=".ui.VoiceChat" >
-        </activity>
-        <activity android:name=".ui.VideoChat" >
-        </activity>
         <activity android:name=".ui.FileChoose" >
         </activity>
         <activity
@@ -62,26 +68,6 @@
 
         <receiver android:name="com.ty.winchat.service.HeartBeatBroaadcastReceiver" >
         </receiver>
-
-<!--         有米广告
-        <activity
-            android:name="net.youmi.android.AdBrowser"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>
-
-        <service
-            android:name="net.youmi.android.AdService"
-            android:exported="false" >
-        </service>
-
-        <receiver android:name="net.youmi.android.AdReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver> -->
     </application>
 
 </manifest>

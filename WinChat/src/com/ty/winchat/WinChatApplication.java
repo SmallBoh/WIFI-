@@ -63,7 +63,6 @@ public class WinChatApplication extends Application{
 	 */
 	private void getDeviceId(){
 		 TelephonyManager telephonyManager=(TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
- //		 String imsi=telephonyManager.getSubscriberId();
 		 deviceCode=telephonyManager.getDeviceId();
 		 Log.d("=============", "DeviceId  :"+deviceCode);
 		 if(deviceCode==null){

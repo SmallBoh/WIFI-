@@ -6,16 +6,11 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.util.Log;
 
 import com.ty.winchat.R;
-import com.ty.winchat.ui.FaceDialog;
 
 public class WinChatUtil {
 	/**
@@ -127,20 +122,7 @@ public class WinChatUtil {
             if (matcher.start() < start) {
                 continue;
             }
-//            Field field = R.drawable.class.getDeclaredField(key);
-//			int resId = Integer.parseInt(field.get(null).toString());		//通过上面匹配得到的字符串来生成图片资源id
-            int a=Integer.valueOf(key.replace("f", ""));
-            int resId=FaceDialog.imageIds[a%107];
-            if (resId != 0) {
-                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resId);	
-                 ImageSpan imageSpan = new ImageSpan(bitmap);//通过图片资源id来得到bitmap，用一个ImageSpan来包装
-                int end = matcher.start() + key.length();					//计算该图片名字的长度，也就是要替换的字符串的长度
-                spannableString.setSpan(imageSpan, matcher.start(), end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);	//将该图片替换字符串中规定的位置中
-                if (end < spannableString.length()) {						//如果整个字符串还未验证完，则继续。。
-                    dealExpression(context,spannableString,  patten, end);
-                }
                 break;
-            }
         }
     }
 	

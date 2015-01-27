@@ -29,7 +29,6 @@ import com.ty.winchat.util.FileUtil;
 import com.ty.winchat.util.WinChatUtil;
 /**
  * ÎÄ¼þÑ¡Ôñ
- * @author wj
  * @creation 2013-6-6
  */
 public class FileChoose extends Base{

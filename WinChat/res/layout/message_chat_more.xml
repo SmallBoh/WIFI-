@@ -20,14 +20,5 @@
         android:drawableTop="@drawable/send_file"
         android:layout_marginRight="10dip"
         />
-    <TextView 
-        android:id="@+id/message_chat_more_video_chat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="视屏聊天"
-        android:drawableTop="@drawable/video_chat_bg"
-        android:textColor="@color/white"
-        />
-
     </LinearLayout>
 </RelativeLayout>

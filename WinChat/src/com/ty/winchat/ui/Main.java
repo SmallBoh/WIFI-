@@ -44,15 +44,14 @@ import com.ty.winchat.model.UDPMessage;
 import com.ty.winchat.model.User;
 import com.ty.winchat.service.ChatService;
 import com.ty.winchat.service.ChatService.MyBinder;
-import com.ty.winchat.util.Constant;
 import com.ty.winchat.util.LocalMemoryCache;
 import com.ty.winchat.util.Util;
+import com.ty.winchat.util.WifiAdmin;
 import com.ty.winchat.widget.PullToRefreshExpandableListView;
 import com.ty.winchat.widget.PullToRefreshExpandableListView.OnRefreshListener;
 
 public class Main extends Base implements IconReceived{
 	private PullToRefreshExpandableListView listView;
-	
 	private List<User> users=new ArrayList<User>();
 	private Map<String, Queue<UDPMessage>> messages;
 	MyServiceConnection connection;
@@ -77,11 +76,13 @@ public class Main extends Base implements IconReceived{
 			}
 		};
 	};
-	
+	private WifiAdmin mAdmin;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        mAdmin = new WifiAdmin(Main.this);
+        mAdmin.openWifi();
         init();
         fileListener=TCPFileListener.getInstance();
       	if(!fileListener.isRunning()) {
@@ -92,16 +93,12 @@ public class Main extends Base implements IconReceived{
 				e.printStackTrace();
 			}
       	}
-      my();
     }
-    private void my(){
-    }
+    
     
     @Override
     protected void onStart() {
     	super.onStart();
-//    	 SpotManager.getInstance(this).showSpotAds(this);
-//    	 SpotManager.getInstance(this).getSpotDialog();
     	 listView.setAdapter(adapter=new MyAdapter());
     	 adapter.notifyDataSetChanged();
     	 if(fileListener!=null)
@@ -158,8 +155,6 @@ public class Main extends Base implements IconReceived{
 					intent.putExtra("DeviceCode", user.getDeviceCode());
 					intent.putExtra("name", user.getUserName());
 					break;
-				case 2:
-					intent=new Intent(Main.this,RoomChat.class ); 
 				}
 				startActivity(intent);//跳转到个人聊天界面
 				return false;
@@ -198,6 +193,7 @@ public class Main extends Base implements IconReceived{
 				finish();
 			}else{
 				showToast("再按一次退出");
+				mAdmin.closeWifi();
 				oldTime=currentTime;
 			}
 		}
@@ -261,7 +257,7 @@ public class Main extends Base implements IconReceived{
    
    class MyAdapter extends BaseExpandableListAdapter{
 	   
-	   String[] group={"自己","在线","聊天室"};
+	   String[] group={"本机","扫描"};
 
 	@Override
 	public Object getChild(int arg0, int arg1) {
@@ -336,19 +332,6 @@ public class Main extends Base implements IconReceived{
 				if(!user.isRefreshIcon()){//第一次展示则再次请求刷新
 					reFreashIcon(user, holder.icon);
 				}
-			}
-			break;
-		case 2://聊天室
-			Bitmap bitmap2=BitmapFactory.decodeResource(getResources(), R.drawable.all_people_icon);
-			holder.icon.setImageBitmap(Util.getRoundedCornerBitmap(bitmap2));
-			holder.userName.setText("所有");
-			holder.ip.setText("接收所有在线人消息");
-			msgs=messages.get(Constant.ALL_ADDRESS);
-			if(msgs!=null&&msgs.size()>0){
-				holder.msgNum.setVisibility(View.VISIBLE);
-				holder.msgNum.setText(msgs.size()+"");
-			}else {
-				holder.msgNum.setVisibility(View.INVISIBLE);
 			}
 			break;
 		}

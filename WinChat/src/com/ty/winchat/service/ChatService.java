@@ -20,7 +20,6 @@ import com.ty.winchat.model.UDPMessage;
 import com.ty.winchat.model.User;
 import com.ty.winchat.ui.Main;
 import com.ty.winchat.ui.MessageChat.MessageUpdateBroadcastReceiver;
-import com.ty.winchat.ui.RoomChat.RoomChatBroadcastReceiver;
 /**
  * 主要用来接收UDP消息，存储在messages中，当有消息来时，通知activity来获取
  * @author wj
@@ -138,10 +137,6 @@ public class ChatService extends Service implements OnUDPReceiveMessage{
 	case Listener.ASK_SEND_FILE:
 		sendBroadcast(new Intent(MessageUpdateBroadcastReceiver.ACTION_NOTIFY_DATA));
 		break;
-	case Listener.TO_ALL_MESSAGE:
-		sendBroadcast(new Intent(RoomChatBroadcastReceiver.ACTION_NOTIFY_DATA));
-		break;
-
 	}
   }
 
